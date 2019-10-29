@@ -1,0 +1,142 @@
+// inicializar variables
+encontrado = 0
+oficina = "extension no encontrada"
+
+// preguntar ip y extensión
+ask IP?
+ip = ask_result
+ask extension?
+extension = ask_result
+
+// cargar listado de extensiones y guardar el resultado de los datos de la extensión
+load extensiones.csv to lista
+array_lista = lista.split('\n')
+
+// buscar extensión
+for (n = 0; n < array_lista.length; n++) 
+{
+  items = array_lista[n].split(',')
+  if (extension == items[3].trim())
+  {
+    oficina = items[2].substr(0,20)
+    echo extension oficina
+    encontrado = 1
+    break
+  }
+}
+
+// verificar extensión
+if (encontrado == 0)
+{
+  echo extension " " oficina
+}
+else
+{
+
+// abrir página - reemplace por su direccionamiento ip
+  https://172.24.30.'+ip+'
+  if present('details-button')
+  {
+    click details-button
+    click proceed-link
+  }
+  wait 20
+  type user_name_txt as admin
+  type password_txt as admin123
+  click login_btn
+  wait 30
+  if present('ontBtn_yes_a')
+  {
+    click ontBtn_yes_a
+  }
+
+//  cambiar idioma
+  click lang
+  click //*[@id="desk_langList_ul"]/li[@data="es-ES"]
+  wait 5
+
+// cambiar papel tapiz
+  click wallpaper_btn
+  wait 15
+  click import_wallPaper
+  vision type('C:\\telefonohuawei\srn2.jpg')
+  vision type(Key.ENTER)
+  wait 10
+  vision type(Key.F5)
+  wait 20
+  click wallpaper_btn
+  wait 15
+  click srn2.jpg
+  click label_save
+  wait 5
+
+// cambiar contraseña por defecto del teléfono
+  click label_advanced
+  click password_btn
+  type old_password_txt as admin123
+  type new_password_txt as *12345678
+  type confirm_password_txt as *12345678
+  click label_save_btn
+  wait 5
+
+// crear cuenta
+  click configwizad_btn
+  wait 5
+  click first_next_btn
+  dclick first_Reg_Server_addr
+// reemplace por la ip de su planta telefónica
+  type first_Reg_Server_addr as 172.24.30.10
+  click final_next_btn
+  dclick account_id_1 
+  type account_id_1 as '+extension+'
+  dclick account_username_1
+  type account_username_1 as '+extension+'
+  dclick account_password_1
+// reemplace por la contraseña configurada en la planta para la extensión
+  type account_password_1 as 123456
+  click label_save_btn
+  wait 10
+  click account_btn
+  wait 10
+  click //*[@class="cont_ico1 open_pop"]
+  dclick account_lablename_edit
+  type account_lablename_edit as '+extension+' '+oficina+'
+  click label_confirm_btn
+  click label_save_btn
+  wait 5
+
+// desacttivar DND y activar buzon de voz
+  click privileges_btn
+  wait 10
+  click donot_disturb_right
+  select donot_disturb_right as 0
+  dclick voicemail_start_code
+  type voicemail_start_code as *97
+  click voicemail_right
+  select voicemail_right as 1
+  click label_save_btn
+  wait 5
+
+// guardar datos
+  click label_status
+  click networkstatus_btn
+  read mac_span to mac
+  click version_btn
+  read sn_td to serial
+
+// configurar Fecha y Hora
+  click label_advanced
+  click tr069_btn
+  click //input[@value="0"]
+  click label_save_btn
+  wait 5
+  click label_system
+  click time_btn
+  click time_zone_select
+  select time_zone_select as 14|-18000|Bogota, Lima, Quito
+  click time_save_span
+  wait 5
+
+// guardar registro
+  write mac ',' serial ',' extension ',' oficina to configurados.csv
+}
