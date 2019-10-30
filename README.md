@@ -16,7 +16,7 @@ Para la ejecución del robot, se necesita:<br />
 <li><a href="https://github.com/alfarodaniel/RPA-TagUI-Telefono-IP-Huawei/blob/master/srn2.jpg" target="_blank">srn2.jpg</a> - imagen a utilizar como papel tapiz del teléfono</li>
 <li><a href="https://github.com/alfarodaniel/RPA-TagUI-Telefono-IP-Huawei/blob/master/configurados.csv" target="_blank">configurados.csv</a> - listado generado por el robot con los teléfonos y extensiones configuradas</li>
 </ul>
-<br />
+</ul>
 <h3>
 Ejecución</h3>
 Desde la consola de comados (cmd) ubicarse dentro de la carpeta y lanzar el siguiente comando:<br />
