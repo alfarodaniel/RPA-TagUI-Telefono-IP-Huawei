@@ -2,17 +2,17 @@
 encontrado = 0
 oficina = "extension no encontrada"
 
-// preguntar ip y extensi髇
+// preguntar ip y extensi贸n
 ask IP?
 ip = ask_result
 ask extension?
 extension = ask_result
 
-// cargar listado de extensiones y guardar el resultado de los datos de la extensi髇
+// cargar listado de extensiones y guardar el resultado de los datos de la extensi贸n
 load extensiones.csv to lista
 array_lista = lista.split('\n')
 
-// buscar extensi髇
+// buscar extensi贸n
 for (n = 0; n < array_lista.length; n++) 
 {
   items = array_lista[n].split(',')
@@ -25,7 +25,7 @@ for (n = 0; n < array_lista.length; n++)
   }
 }
 
-// verificar extensi髇
+// verificar extensi贸n
 if (encontrado == 0)
 {
   echo extension " " oficina
@@ -33,7 +33,7 @@ if (encontrado == 0)
 else
 {
 
-// abrir p醙ina - reemplace por su direccionamiento ip
+// abrir p谩gina - reemplace por su direccionamiento ip
   https://172.24.30.'+ip+'
   if present('details-button')
   {
@@ -70,10 +70,11 @@ else
   click label_save
   wait 5
 
-// cambiar contrase馻 por defecto del tel閒ono
+// cambiar contrase帽a por defecto del tel茅fono
   click label_advanced
   click password_btn
   type old_password_txt as admin123
+// cambiar la contrase帽a por una m谩s segura
   type new_password_txt as *12345678
   type confirm_password_txt as *12345678
   click label_save_btn
@@ -84,7 +85,7 @@ else
   wait 5
   click first_next_btn
   dclick first_Reg_Server_addr
-// reemplace por la ip de su planta telef髇ica
+// reemplace por la ip de su planta telef贸nica
   type first_Reg_Server_addr as 172.24.30.10
   click final_next_btn
   dclick account_id_1 
@@ -92,7 +93,7 @@ else
   dclick account_username_1
   type account_username_1 as '+extension+'
   dclick account_password_1
-// reemplace por la contrase馻 configurada en la planta para la extensi髇
+// reemplace por la contrase帽a configurada en la planta para la extensi贸n
   type account_password_1 as 123456
   click label_save_btn
   wait 10
@@ -111,6 +112,7 @@ else
   click donot_disturb_right
   select donot_disturb_right as 0
   dclick voicemail_start_code
+// cambiar por el codigo propio de la planta telef贸nica
   type voicemail_start_code as *97
   click voicemail_right
   select voicemail_right as 1
@@ -133,6 +135,7 @@ else
   click label_system
   click time_btn
   click time_zone_select
+// cambiar a la zona horaria de su ubicaci贸n
   select time_zone_select as 14|-18000|Bogota, Lima, Quito
   click time_save_span
   wait 5
